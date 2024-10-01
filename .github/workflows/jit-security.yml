@@ -22,6 +22,36 @@ jobs:
       with:
         security_control: registry.jit.io/control-enrichment-slim:latest
         
+  iac-misconfig-detection-cloudformation:
+    if: fromJSON(github.event.inputs.client_payload).payload.workflow_job_name == 'iac-misconfig-detection-cloudformation' && fromJSON(github.event.inputs.client_payload).payload.workflow_slug == 'workflow-iac-misconfiguration-detection'
+    runs-on: ubuntu-22.04
+    timeout-minutes: 60
+    steps:
+    - name: kics
+      uses: jitsecurity-controls/jit-github-action@v4.2.3
+      with:
+        security_control: registry.jit.io/control-kics-alpine:latest
+        
+  iac-misconfig-detection-pulumi:
+    if: fromJSON(github.event.inputs.client_payload).payload.workflow_job_name == 'iac-misconfig-detection-pulumi' && fromJSON(github.event.inputs.client_payload).payload.workflow_slug == 'workflow-iac-misconfiguration-detection'
+    runs-on: ubuntu-22.04
+    timeout-minutes: 60
+    steps:
+    - name: kics
+      uses: jitsecurity-controls/jit-github-action@v4.2.3
+      with:
+        security_control: registry.jit.io/control-kics-alpine:latest
+        
+  iac-misconfig-detection-terraform:
+    if: fromJSON(github.event.inputs.client_payload).payload.workflow_job_name == 'iac-misconfig-detection-terraform' && fromJSON(github.event.inputs.client_payload).payload.workflow_slug == 'workflow-iac-misconfiguration-detection'
+    runs-on: ubuntu-22.04
+    timeout-minutes: 60
+    steps:
+    - name: kics
+      uses: jitsecurity-controls/jit-github-action@v4.2.3
+      with:
+        security_control: registry.jit.io/control-kics-alpine:latest
+        
   remediation-pr:
     if: fromJSON(github.event.inputs.client_payload).payload.workflow_job_name == 'remediation-pr' && fromJSON(github.event.inputs.client_payload).payload.workflow_slug == 'workflow-remediation-pr'
     runs-on: ubuntu-22.04
@@ -41,6 +71,17 @@ jobs:
       uses: jitsecurity-controls/jit-github-action@v4.2.3
       with:
         security_control: registry.jit.io/control-gitleaks-alpine:latest
+        
+  software-bill-of-materials:
+    if: fromJSON(github.event.inputs.client_payload).payload.workflow_job_name == 'software-bill-of-materials' && fromJSON(github.event.inputs.client_payload).payload.workflow_slug == 'workflow-sbom'
+    runs-on: ubuntu-22.04
+    timeout-minutes: 60
+    steps:
+    - name: syft
+      uses: jitsecurity-controls/jit-github-action@v4.2.3
+      with:
+        security_control: registry.jit.io/control-syft-alpine:latest
+        fail_if_cannot_checkout: false
         
   software-component-analysis-elixir:
     if: fromJSON(github.event.inputs.client_payload).payload.workflow_job_name == 'software-component-analysis-elixir' && fromJSON(github.event.inputs.client_payload).payload.workflow_slug == 'workflow-sca'
